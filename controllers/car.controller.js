@@ -32,10 +32,7 @@ carController.getCars = async (req, res, next) => {
 
     res.status(200).send({
       message: "Get Car List Successfully!",
-      data: { cars: getAll },
-      page: Number(page),
-      // total pages
-      total: total,
+      data: { cars: getAll, page: Number(page), total: total },
     });
   } catch (err) {
     res.status(404).send(err.message);
