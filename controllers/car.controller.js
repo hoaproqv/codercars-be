@@ -57,17 +57,10 @@ carController.editCar = async (req, res, next) => {
 carController.deleteCar = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const carDelete = await Car.findByIdAndUpdate(
-      id,
-      { isDelete: true },
-      { new: true },
-    );
+    await Car.findByIdAndUpdate(id, { isDeleted: true });
 
     res.status(200).send({
       message: "Delete Car Successfully!",
-      data: {
-        cars: carDelete,
-      },
     });
   } catch (err) {
     res.status(404).send(err.message);
