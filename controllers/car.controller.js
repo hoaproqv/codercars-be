@@ -20,6 +20,7 @@ carController.getCars = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
     let getAll = await Car.find({});
+    getAll.sort((a, b) => b["release_date"] - a["release_date"]);
     const total = Math.ceil(getAll.length / limit);
 
     if (total > limit) {
