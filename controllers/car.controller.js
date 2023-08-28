@@ -19,8 +19,7 @@ carController.createCar = async (req, res, next) => {
 carController.getCars = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
-    let getAll = await Car.find({});
-    getAll.sort((a, b) => b["release_date"] - a["release_date"]);
+    let getAll = await Car.find({ isDelete: false });
     const total = Math.ceil(getAll.length / limit);
 
     if (total > limit) {
@@ -58,7 +57,11 @@ carController.editCar = async (req, res, next) => {
 carController.deleteCar = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const carDelete = await Car.findByIdAndDelete(id);
+    const carDelete = await Car.findByIdAndUpdate(
+      id,
+      { isDelete: true },
+      { new: true },
+    );
 
     res.status(200).send({
       message: "Delete Car Successfully!",
