@@ -18,7 +18,7 @@ carController.createCar = async (req, res, next) => {
 
 carController.getCars = async (req, res, next) => {
   try {
-    const { page } = req.query;
+    const page = req.query.page || 1;
     let getAll = await Car.find({});
     const total = Math.ceil(getAll.length / limit);
 
